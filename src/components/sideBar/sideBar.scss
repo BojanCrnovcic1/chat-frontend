@@ -1,0 +1,12 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+.sideBar {
+    display: flex;
+    flex-direction: column;
+    height: 73vh;
+    width: 270px;
+    border-right: 1px solid red;
+}

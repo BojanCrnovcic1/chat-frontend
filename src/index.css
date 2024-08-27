@@ -1,0 +1,12 @@
+:root {
+ margin: 0px;
+ padding: 0px;
+ box-sizing: border-box;
+ background-image: url('assets/Blue-27.jpg');
+ color: white;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding-top:50px ;
+}
+

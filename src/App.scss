@@ -1,0 +1,15 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(2, 48, 71, 0.8);
+    width: 900px;
+    height: 84vh;
+    border-radius: 10px;
+
+    .section {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+    }
+}
