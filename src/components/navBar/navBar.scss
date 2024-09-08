@@ -29,5 +29,27 @@
         align-items: center;
         justify-content: space-around;
         gap: 30px;
-    }
+
+            .notification-wrapper {
+                position: relative;
+                cursor: pointer;
+        
+                .faBell {
+                    margin-right: 1rem;
+                }
+        
+                .notification-count {
+                    position: absolute;
+                    top: -8px;
+                    right: -8px;
+                    background-color: red;
+                    color: white;
+                    border-radius: 50%;
+                    padding: 0.3rem 0.6rem;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                }
+            }
+        }
 }
+

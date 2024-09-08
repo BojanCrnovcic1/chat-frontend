@@ -1,3 +1,4 @@
+import { FriendType } from "./FriendType";
 import { User } from "./User";
 
 export interface NotificationType {
@@ -7,5 +8,6 @@ export interface NotificationType {
     isRead?: boolean | null;
     createdAt?: Date | null;
     user?: User;
+    friend?: FriendType;
   }
   

@@ -1,6 +1,10 @@
 import { createContext, useContext } from "react";
+import { User } from "../types/User";
 
 interface AuthContextType {
+    isLoggedIn: boolean;
+    user: User | null;
+    setUser: (user: User | null) => void;
     token: string | null;
     onlineStatus: boolean | null;
     login: (email: string, password: string) => Promise<void>;

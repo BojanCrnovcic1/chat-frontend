@@ -1,0 +1,50 @@
+.notification-container {
+    width: 560px;
+    height: 516px;
+    background-color: rgb(51, 51, 51,0.5);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: scroll;
+    flex-wrap: none;
+
+    .notification-item {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 20px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &.read {
+            color: #888;
+        }
+
+        &.unread {
+            font-weight: bold;
+            color: #ddd;
+        }
+
+        button {
+            margin-left: 140px;
+            padding: 5px 10px;
+            border: none;
+            font-size: 1rem;
+            background-color: inherit;
+            color: #ddd;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            color: rgba(255, 0, 0, 0.941);
+        }
+    }
+}
+.notification-container::-webkit-scrollbar {
+    width: 3px;
+}
+
