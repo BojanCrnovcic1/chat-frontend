@@ -114,7 +114,9 @@ const Notification: React.FC<NotificationProps> = ({ userId }) => {
                 <p>Loading notifications...</p>
             ) : (
                 <ul>
-                    {notifications.map(notification => (
+                    {notifications
+                    .sort((a, b) => new Date(b.createdAt ?? new Date()).getTime() - new Date(a.createdAt ?? new Date()).getTime())
+                    .map(notification => (
                         <li
                             key={notification.notificationId}
                             className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}

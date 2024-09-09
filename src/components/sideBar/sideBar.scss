@@ -9,11 +9,32 @@
     height: 72vh;
     width: 290px;
     border-right: 1px solid red;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    z-index: 997;
 
     .sideBar-search {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: auto;
+    }
+
+    .sideBar-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        border:  1px solid yellow;
+        height: 80px;
+    }
+
+    .sideBar-friends {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        border: 1px solid red;
     }
 }

@@ -13,12 +13,14 @@
 
     .list-search {
         padding-top: 10px;
+        z-index: 999;
+        position: absolute;
        
         ul {
             margin: 0px;
             padding: 0px;
             list-style: none;
-            background-color: rgba(245, 240, 240, 0.5);
+            background-color: rgba(72, 70, 70, 0.9);
             border-radius: 5px;
 
             li {

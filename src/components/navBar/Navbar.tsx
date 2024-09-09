@@ -94,9 +94,12 @@ const Navbar = () => {
         <div className='navBar' onClick={handleInteraction}>
             <div className='navBar-left'>
                 <h1>App naziv</h1>
-                <span>{user?.username}</span>
             </div>
             <div className='navBar-right'>
+                <div className='navBar-user'>
+                    <img src={ApiConfig.PHOTO_PATH +user?.profilePicture} alt="" />
+                    <span>{user?.username}</span>
+                </div>
                 <FontAwesomeIcon icon={faMoon} />
                 <div className='notification-wrapper' onClick={handleNotificationClick}>
                     <FontAwesomeIcon

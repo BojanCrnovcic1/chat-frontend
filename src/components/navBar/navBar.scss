@@ -28,7 +28,26 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-        gap: 30px;
+        gap: 20px;
+
+        .navBar-user {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            img {
+                border: 1px solid red;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+            span {
+                font-size: 1.5rem;
+                color: silver;
+            }
+        }
 
             .notification-wrapper {
                 position: relative;
