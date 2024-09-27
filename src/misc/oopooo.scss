@@ -2,14 +2,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-   
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    height: 660px;
     width: 100%;
     max-width: 900px;
-    height: 660px;
-    border: 1px solid blue;
     margin: auto;
   
     .room-header {
@@ -21,71 +21,12 @@
       padding: 15px 25px;
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      max-width: 100%;
-      max-height: 100%;
-      
+  
       h2 {
         font-size: 1.8rem;
         font-weight: 600;
-        color: #00d9a3;        
+        color: #00d9a3;
       }
-
-      .room-header-detalis {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px;
-        border-radius: 8px;
-      
-        .private-detalis {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          gap: 10px;
-      
-          .profile-picture {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          }
-      
-          .user-info {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-      
-            .username {
-              font-size: 1.8rem;
-              font-weight: 600;
-              color: #00d9a3;
-              margin: 0;
-            }
-      
-            .status {
-              display: flex;
-              align-items: center;
-              font-size: 0.9rem;
-              color: #666;
-      
-              .status-indicator {
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                margin-right: 5px;
-                background-color: #dc3545;
-              }
-      
-              &.online .status-indicator {
-                background-color: #28a745;
-              }
-            }
-          }
-        }
-      }
-      
   
       .room-options {
         display: flex;
@@ -123,12 +64,10 @@
       margin-top: 20px;
       overflow: hidden;
       position: relative;
-      height: 640px;
-      gap: 10px;
       
       .message-list {
         flex-grow: 1;
-        overflow: scroll;
+        overflow-y: scroll;
         padding-right: 15px;
         max-height: 400px;
         display: flex;
@@ -145,7 +84,6 @@
           position: relative;
           animation: fadeIn 0.3s ease;
           word-wrap: break-word;
-          gap: 10px;
   
           &.sent {
             background-color: #17BEBB;
@@ -183,16 +121,13 @@
           }
 
           .message-text {
-            p {
-                word-wrap: break-word;
-                white-space: normal;
-                overflow-wrap: break-word;
-                max-width: 100%;
-                line-height: 1.5;
-                margin: 10px 0; 
-                font-size: 1em; 
-                font-style: normal;
-            }
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word;
+            max-width: 100%;
+            line-height: 1.5;
+            margin: 10px 0; 
+            font-size: 1em; 
           }
 
           img {
@@ -217,21 +152,11 @@
           }
         }
       }
-      
-      .message-list::-webkit-scrollbar {
-        width: 3px;
-        color: silver;
-      }
-      .message-list::-webkit-scrollbar-thumb {
-        background-color: #888;  
-        border-radius: 10px;
-        border: 2px solid #f1f1f1;  
-        transition: background-color 0.3s ease;
-      }
-      .message-list::-webkit-scrollbar-thumb:hover {
-        background-color: #555;  
-      }
 
+      .message-list::-webkit-scrollbar {
+        width: 6px
+      }
+  
       .message-inputs {
         display: flex;
         flex-direction: column;
@@ -240,12 +165,11 @@
         background-color: #0f1f3d;
         border-radius: 10px;
         padding: 10px 15px;
+        gap: 10px;
   
         .message-input {
           display: flex;
           width: 80%;
-          padding-top: 10px;
-          padding-bottom: 5px;
 
           input {
             flex-grow: 1;
@@ -318,6 +242,5 @@
           
       }
     }
-    
   }
   

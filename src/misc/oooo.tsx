@@ -22,7 +22,6 @@ const Room: React.FC = () => {
   const [room, setRoom] = useState<ChatRoomType | null>(null);
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
-  const [chatRoomMembers, setChatRoomMembers] = useState<ChatRoomMemberType[]>([]);
   const [showAddMemberModal, setShowAddMemberModal] = useState<boolean>(false);
   const [showRemoveMemberModal, setShowRemoveMemberModal] = useState<boolean>(false);
   const [showBanUserModal, setShowBanUserModal] = useState<boolean>(false);
@@ -32,31 +31,22 @@ const Room: React.FC = () => {
   const [editMessageModal, setEditMessageModal] = useState<boolean>(false);
   const [currentImage, setCurrentImage] = useState<string>('');
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-  const [refActive, setRefActive] = useState<boolean>(true);
   const { token, user } = useAuth();
   const userId = user?.userId;
   const { id: chatRoomId } = useParams<{ id: string }>();
-
   const roomId = Number(chatRoomId);
   const endRef = useRef<HTMLDivElement | null>(null);
-  
+
   useEffect(() => {
     fetchRoomData();
     fetchMessages();
   }, [roomId]);
 
   useEffect(() => {
-    if (refActive && endRef.current) {
-      endRef.current.scrollIntoView({  block: 'end' });
-
-      const timer = setTimeout(() => {
-        setRefActive(false); 
-      }, 1000);
-
-      return () => clearTimeout(timer); 
+    if (endRef.current) {
+      endRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages, refActive]);
-
+  }, [messages]); 
 
   const fetchRoomData = async () => {
     try {
@@ -66,25 +56,10 @@ const Room: React.FC = () => {
         }
       });
       setRoom(response.data);
-      console.log('fetch room data: ', response)
     } catch (error) {
       console.error('Error fetching room details', error);
     }
   };
-
-  const handleChatRoomMambers = async () => {
-    try {
-        const response = await axios.get<ChatRoomMemberType[]>(ApiConfig.API_URL + `api/room/${roomId}/members`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        setChatRoomMembers(response.data);
-        console.log('chat room members: ', response.data)
-    } catch (error) {
-        console.error('Error fetch chat members. ',error)
-    }
-};
 
   const fetchMessages = async () => {
     try {
@@ -174,29 +149,13 @@ const Room: React.FC = () => {
   };
 
   const getPrivateChatName = () => {
-    
     if (room?.chatRoomMembers && room.chatRoomMembers.length === 2) {
-        const otherUser = room.chatRoomMembers.find(
-            (member: ChatRoomMemberType) => member.userId !== user?.userId
-        );
-
-        return (
-          <>
-          <div className='room-header-detalis'>
-              <div className="private-detalis">
-                  <img src={ApiConfig.PHOTO_PATH + otherUser?.user?.profilePicture} alt={`${otherUser?.user?.username}'s profile`} className="profile-picture" />
-                  <div className="user-info">
-                      <p className="username">{otherUser?.user?.username}</p>
-                      <div className={`status ${otherUser?.user?.onlineStatus ? 'online' : ''}`}>
-                          <span className="status-indicator"></span>
-                          <p>{otherUser?.user?.onlineStatus ? 'Online' : 'Offline'}</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          </>
-        )
-      }
+      const otherUser = room.chatRoomMembers.find(
+        (member: ChatRoomMemberType) => member.userId !== user?.userId
+      );
+      return otherUser?.user?.username || 'Unknown';
+    }
+    return 'Private Chat';
   };
 
   const handleImageClick = (imageUrl: string) => {
@@ -215,7 +174,7 @@ const Room: React.FC = () => {
   return (
     <div className='room'>
       <div className='room-header'>
-      <h2>{room?.isGroup ? room.name : getPrivateChatName()}</h2>
+        <h2>{room?.isGroup ? room.name : getPrivateChatName()}</h2>
         <div className='room-options'>
           {room?.isGroup ? (
             <>
@@ -372,8 +331,7 @@ const Room: React.FC = () => {
           <MembersListModal
             show={showMembersListModal}
             handleClose={() => setShowMembersListModal(false)}
-            chatRoomMembers={chatRoomMembers || []}
-            handleChatRoomMambers={handleChatRoomMambers}
+            chatRoomMembers={room?.chatRoomMembers || []}
           />
         )}
         {!room?.isGroup && showBanUserModal && (

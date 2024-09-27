@@ -21,13 +21,34 @@
         padding: auto;
     }
 
-    .sideBar-message {
+    .sideBar-group {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 20px;
-        border:  1px solid yellow;
         height: 80px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+        button {          
+            border-radius: 10px;
+            border: none;
+            font-size: 1.5rem;
+            padding: 10px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: bold;
+            color: white;
+            background-color: #02274b;
+            
+            cursor: pointer;
+
+            .svg {
+                margin-right: 15px;
+            }
+        }
+
+        button:hover {
+            background-color: #05498d;
+        }
     }
 
     .sideBar-friends {

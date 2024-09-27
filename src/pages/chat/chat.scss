@@ -10,12 +10,13 @@
     justify-content: center;
     border: 1px solid pink;
     width: 620px;
-    height: 590px;
+    height: 700px;
 
     .chat-content {
-        display: flex;
-        padding: 20px;
+        display: flex;       
         border: 1px solid yellow;
+        height: 620px;
+        width: 660px;
         
     }
 }

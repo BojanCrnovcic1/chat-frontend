@@ -1,24 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
 import './friends.scss';
-import { FriendType } from '../../types/FriendType';
-import { ChatRoomType } from '../../types/ChatRoomType';  // Import the ChatRoomType
 import axios from 'axios';
-import { ApiConfig } from '../../config/ApiConfig';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { FriendType } from '../types/FriendType';
+import { ApiConfig } from '../config/ApiConfig';
 
 const Friends = () => {
     const { token, user } = useAuth();
     const userId = user?.userId;
     const navigate = useNavigate();
     const [friends, setFriends] = useState<FriendType[]>([]);
-    const [groupRooms, setGroupRooms] = useState<ChatRoomType[]>([]);  // State for group rooms
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         if (userId) {
             fetchFriends();
-            fetchGroupRooms(); 
         }
     }, [userId]);
 
@@ -55,35 +52,12 @@ const Friends = () => {
                 }
             );
             setFriends(response.data);
-            console.log('list friends of user: ',response.data)
         } catch (error) {
             console.error('Error fetching friends.', error);
         } finally {
             setLoading(false);
         }
     };
-
-    const fetchGroupRooms = async () => {
-        try {
-            const response = await axios.get(
-                `${ApiConfig.API_URL}api/room/user/groups`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
-            setGroupRooms(response.data);
-            console.log('group rooms: ', response.data);
-        } catch (error) {
-            console.error('Error fetching group rooms.', error);
-        }
-    };
-
-    const handleGroupRoom = async (chatRoomId: number) => {
-        navigate(`/room/${chatRoomId}`);
-    };
-    
 
     if (loading) {
         return <p>Loading friends...</p>;
@@ -92,13 +66,13 @@ const Friends = () => {
     return (
         <div className="friends-container">
             <div className="list-friends">
-                {friends.length === 0 && groupRooms.length === 0 ? (
-                    <p>No friends or group rooms found.</p>
+                {friends.length === 0 ? (
+                    <p>No friends found.</p>
                 ) : (
                     <ul>
                         {friends.map((friend) => {
                             const friendInfo = friend.userId === userId ? friend.friend : friend.user;
-
+                            
                             const profilePicture = friendInfo?.profilePicture
                                 ? `${ApiConfig.PHOTO_PATH}${friendInfo.profilePicture}`
                                 : '/default-avatar.png'; // default avatar
@@ -130,19 +104,6 @@ const Friends = () => {
                                 </li>
                             );
                         })}
-
-                        {groupRooms.map((room) => (
-                            <li
-                                key={room.chatRoomId}
-                                className="group-room-item"
-                                onClick={() => handleGroupRoom(room.chatRoomId!)}
-                            >
-                                <div className="group-room-info">
-                                    <h3>{room.name || 'Unnamed Group'}</h3>
-                                    <span className="group-label">Group</span>
-                                </div>
-                            </li>
-                        ))}
                     </ul>
                 )}
             </div>
@@ -151,5 +112,3 @@ const Friends = () => {
 };
 
 export default Friends;
-
-

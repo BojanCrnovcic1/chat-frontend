@@ -9,5 +9,6 @@ export interface NotificationType {
     createdAt?: Date | null;
     user?: User;
     friend?: FriendType;
+    friendId?: number;
   }
   

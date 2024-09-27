@@ -20,4 +20,5 @@ export interface User {
     likes?: LikeType[];
     messages?: MessageType[];
     notifications?: NotificationType[];
+    
 }

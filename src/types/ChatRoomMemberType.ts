@@ -8,5 +8,8 @@ export interface ChatRoomMemberType {
     joinedAt?: Date | null;
     chatRoom?: ChatRoomType;
     user?: User;
+    username?: string;
+    profilePicture?: string | null;
+    onlineStatus?: boolean | null;
   }
   

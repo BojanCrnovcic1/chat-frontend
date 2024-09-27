@@ -26,7 +26,7 @@ const RequestModal:React.FC<RequestModal> = ({ show, handleClose, notification, 
         try {
             const response = await axios.post(ApiConfig.API_URL + 'api/friend/accept-request', {
                 userId: notification.userId,
-                friendId: notification.friend?.userId,
+                friendId: notification.user?.userId,
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -35,7 +35,7 @@ const RequestModal:React.FC<RequestModal> = ({ show, handleClose, notification, 
             
             console.log('acceptad status: ', response.data);
             console.log('u modalu userId: ', notification.userId);
-            console.log(' u modalu friendId: ', notification.friend?.userId)
+            console.log(' u modalu friendId: ', notification.friendId)
             onRequestHandled();
         } catch (error) {
             console.error('Error accepting friend request:', error)
@@ -49,7 +49,7 @@ const RequestModal:React.FC<RequestModal> = ({ show, handleClose, notification, 
            await axios.delete(ApiConfig.API_URL + 'api/friend/reject-request', {
                 data: {
                     userId: notification.userId,
-                    friendId: notification.user?.userId
+                    friendId: notification.friendId,
                 }
             })
             onRequestHandled();
