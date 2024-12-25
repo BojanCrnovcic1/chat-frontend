@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import './addMemberModal.scss';
 import axios from 'axios';
 import { ApiConfig } from '../../config/ApiConfig';
 import { FriendType } from '../../types/FriendType';
 import { useAuth } from '../../context/AuthContext';
+import { defaultProfile } from '../../misc/defaultProfile';
 
 interface AddMemberProps {
     show: boolean;
@@ -21,11 +22,14 @@ const AddMemberModal: React.FC<AddMemberProps> = ({ show, handleClose, chatRoomI
     useEffect(() => {
         const fetchFriends = async () => {
             try {
-                const response = await axios.get(ApiConfig.API_URL + `api/friend/${user?.userId}/friends`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
+                const response = await axios.get(
+                    `${ApiConfig.API_URL}api/friend/${user?.userId}/friends`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
                     }
-                });
+                );
                 setFriends(response.data);
                 console.log("Friends data:", response.data); 
             } catch (error) {
@@ -36,7 +40,7 @@ const AddMemberModal: React.FC<AddMemberProps> = ({ show, handleClose, chatRoomI
         if (show) {
             fetchFriends();
         }
-    }, [show]);
+    }, [show, user?.userId, token]);
 
     const handleAddMember = async () => {
         if (!selectedUserId) {
@@ -48,14 +52,18 @@ const AddMemberModal: React.FC<AddMemberProps> = ({ show, handleClose, chatRoomI
         setErrorMessage(null);
 
         try {
-            const response = await axios.post(ApiConfig.API_URL + `api/room/${chatRoomId}/members`, {
-                userId: selectedUserId,
-                role: 'member'
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
+            const response = await axios.post(
+                `${ApiConfig.API_URL}api/room/${chatRoomId}/members`,
+                {
+                    userId: selectedUserId,
+                    role: 'member'
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-            });
+            );
             console.log('response add member: ', response.data);
             if (response.data.status === 'error') {
                 setErrorMessage(response.data.message);
@@ -78,21 +86,32 @@ const AddMemberModal: React.FC<AddMemberProps> = ({ show, handleClose, chatRoomI
                 <div className='add-content'>
                     <div className='add-friend-list'>
                         {friends.length > 0 ? (
-                            friends.map((friend) => (
-                                <div key={friend.friendId || friend.friend?.username} className='friend-item'>
-                                    <img 
-                                        src={ApiConfig.PHOTO_PATH + friend.friend?.profilePicture || 'default-avatar.png'} 
-                                        alt={`${friend.friend?.username}'s avatar`} 
-                                        className='friend-avatar' 
-                                    />
-                                    <input type='radio' id={`friend-${friend.friendId}`}
-                                           name='friend' value={friend.friendId}
-                                           onChange={() => setSelectedUserId(friend.friendId!)} />
-                                    <label htmlFor={`friend-${friend.friendId}`}>
-                                         {friend.friend?.username}
-                                    </label>
-                                </div>
-                            ))
+                            friends.map((friend) => {
+                                const friendInfo = friend.senderId === user?.userId ? friend.receiver : friend.sender;
+                                const profilePicture = friendInfo?.profilePicture
+                                    ? `${ApiConfig.PHOTO_PATH}${friendInfo.profilePicture}`
+                                    : defaultProfile;
+
+                                return (
+                                    <div key={friend.friendId} className='friend-item'>
+                                        <img 
+                                            src={profilePicture} 
+                                            alt={`${friendInfo?.username || 'Friend'}'s avatar`} 
+                                            className='friend-avatar' 
+                                        />
+                                        <input
+                                            type='radio'
+                                            id={`friend-${friend.friendId}`}
+                                            name='friend'
+                                            value={friendInfo?.userId}
+                                            onChange={() => setSelectedUserId(friendInfo?.userId!)}
+                                        />
+                                        <label htmlFor={`friend-${friend.friendId}`}>
+                                            {friendInfo?.username || 'Unknown User'}
+                                        </label>
+                                    </div>
+                                );
+                            })
                         ) : (
                             <p>No friends available.</p>
                         )}

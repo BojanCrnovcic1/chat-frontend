@@ -5,8 +5,8 @@ import { NotificationType } from '../../types/NotificationType';
 import { ApiConfig } from '../../config/ApiConfig';
 import { useAuth } from '../../context/AuthContext';
 import RequestModal from '../../modals/notification/RequestModal';
-
-
+import { useNavigate } from 'react-router-dom';
+import { AdminMessageType } from '../../types/AdminMessageType';
 
 interface NotificationProps {
     userId: number;
@@ -14,10 +14,13 @@ interface NotificationProps {
 
 const Notification: React.FC<NotificationProps> = ({ userId }) => {
     const { token } = useAuth();
+    const navigate = useNavigate();
     const [notifications, setNotifications] = useState<NotificationType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [selectedNotification, setSelectedNotification] = useState<NotificationType | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [adminMessageModalOpen, setAdminMessageModalOpen] = useState<boolean>(false);
+    const [adminMessageContent, setAdminMessageContent] = useState<AdminMessageType | null>(null);
 
     useEffect(() => {
         const fetchNotifications = async () => {
@@ -27,20 +30,16 @@ const Notification: React.FC<NotificationProps> = ({ userId }) => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                console.log('Notifications response:', response.data);
                 setNotifications(response.data);
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching notifications:', error);
+            } finally {
                 setLoading(false);
             }
         };
 
         fetchNotifications();
-        refreshNotifications()
     }, [userId, token]);
-
-    console.log('Notifications:', notifications);
 
     const refreshNotifications = async () => {
         try {
@@ -53,7 +52,7 @@ const Notification: React.FC<NotificationProps> = ({ userId }) => {
         } catch (error) {
             console.error('Error refreshing notifications:', error);
         }
-    }
+    };
 
     const deleteNotification = async (notificationId: number) => {
         try {
@@ -69,30 +68,35 @@ const Notification: React.FC<NotificationProps> = ({ userId }) => {
     };
 
     const handleNotificationClick = async (notification: NotificationType) => {
-        console.log('Notification clicked:', notification); 
-        if (!notification.isRead && notification.message?.includes('friend request')) {
-            await markAsRead(notification.notificationId); 
+        if (notification.adminMessage) {
+            if (Array.isArray(notification.adminMessage)) {
+                setAdminMessageContent(notification.adminMessage[0]);
+            } else {
+                setAdminMessageContent(notification.adminMessage);
+            }
+            setAdminMessageModalOpen(true);
+        } else if (notification.chatRoomId) {
+            const currentPath = window.location.pathname;
+            if (!currentPath.includes(`/room/${notification.chatRoomId}`)) {
+                navigate(`/room/${notification.chatRoomId}`);
+            }
+        } else if (notification.message?.includes('friend request')) {
             setSelectedNotification(notification);
             setIsModalOpen(true);
-        } else {
-            markAsRead(notification.notificationId);
         }
+    
+        await markAsRead(notification.notificationId);
         await refreshNotifications();
     };
-
+    
     const markAsRead = async (notificationId?: number) => {
-        console.log('markAsRead called with notificationId:', notificationId);
-        if (!notificationId) {
-            console.error('No notificationId provided'); 
-            return;
-        }
+        if (!notificationId) return;
         try {
-            const response = await axios.patch(ApiConfig.API_URL + `api/notification/${notificationId}/read`, null, {
+            await axios.patch(ApiConfig.API_URL + `api/notification/${notificationId}/read`, null, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log('Mark as read response:', response.data);
             setNotifications(notifications.map(notification =>
                 notification.notificationId === notificationId
                     ? { ...notification, isRead: true }
@@ -103,9 +107,15 @@ const Notification: React.FC<NotificationProps> = ({ userId }) => {
         }
     };
 
+    const closeAdminMessageModal = () => {
+        setAdminMessageModalOpen(false);
+        setAdminMessageContent(null);
+    };
+
     const onRequestHandled = () => {
-        
         setNotifications(notifications.filter(notification => notification !== selectedNotification));
+        setSelectedNotification(null);
+        setIsModalOpen(false);
     };
 
     return (
@@ -115,25 +125,35 @@ const Notification: React.FC<NotificationProps> = ({ userId }) => {
             ) : (
                 <ul>
                     {notifications
-                    .sort((a, b) => new Date(b.createdAt ?? new Date()).getTime() - new Date(a.createdAt ?? new Date()).getTime())
-                    .map(notification => (
-                        <li
-                            key={notification.notificationId}
-                            className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}
-                            onClick={() => handleNotificationClick(notification)}
-                        >
-                            {notification.message}
-                            <button onClick={() => notification.notificationId && deleteNotification(notification.notificationId)}>X</button>
-                        </li>
-                    ))}
+                        .sort((a, b) => new Date(b.createdAt ?? new Date()).getTime() - new Date(a.createdAt ?? new Date()).getTime())
+                        .map(notification => (
+                            <li
+                                key={notification.notificationId}
+                                className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}
+                                onClick={() => handleNotificationClick(notification)}
+                            >
+                                {notification.message}
+                                {notification.adminMessage && <span className="admin-badge">Admin</span>}
+                                <button onClick={(e) => { e.stopPropagation(); notification.notificationId && deleteNotification(notification.notificationId); }}>X</button>
+                            </li>
+                        ))}
                 </ul>
             )}
+            {adminMessageModalOpen && (
+                <div className="admin-message-modal">
+                    <div className="admin-message-content">
+                        <h2>Admin Message</h2>
+                        <p>{adminMessageContent?.content}</p>
+                        <button onClick={closeAdminMessageModal} className="close-button">Close</button>
+                    </div>
+                </div>
+            )}
             {selectedNotification && (
-               <RequestModal
-                  show={isModalOpen}
-                  handleClose={() => setIsModalOpen(false)}
-                 notification={selectedNotification}
-                 onRequestHandled={onRequestHandled}
+                <RequestModal
+                    show={isModalOpen}
+                    handleClose={() => setIsModalOpen(false)}
+                    notification={selectedNotification}
+                    onRequestHandled={onRequestHandled}
                 />
             )}
         </div>

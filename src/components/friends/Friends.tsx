@@ -1,26 +1,54 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import './friends.scss';
 import { FriendType } from '../../types/FriendType';
-import { ChatRoomType } from '../../types/ChatRoomType';  // Import the ChatRoomType
+import { ChatRoomType } from '../../types/ChatRoomType';
 import axios from 'axios';
 import { ApiConfig } from '../../config/ApiConfig';
 import { useNavigate } from 'react-router-dom';
+import { defaultProfile } from '../../misc/defaultProfile';
 
-const Friends = () => {
+interface FriendsProps {
+    onUserSelect: () => void;
+  }
+
+const Friends: React.FC<FriendsProps> = ({ onUserSelect }) => {
     const { token, user } = useAuth();
     const userId = user?.userId;
     const navigate = useNavigate();
     const [friends, setFriends] = useState<FriendType[]>([]);
-    const [groupRooms, setGroupRooms] = useState<ChatRoomType[]>([]);  // State for group rooms
+    const [groupRooms, setGroupRooms] = useState<ChatRoomType[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [unreadMessages, setUnreadMessages] = useState<{ [key: number]: number }>({});
 
     useEffect(() => {
         if (userId) {
             fetchFriends();
             fetchGroupRooms(); 
+            fetchUnreadMessages();
         }
     }, [userId]);
+
+    const fetchUnreadMessages = async () => {
+        try {
+            const response = await axios.get(
+                `${ApiConfig.API_URL}api/notification/unread/${userId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            const unreadCounts = response.data.reduce((acc: { [key: number]: number }, item: { senderId: number, count: number }) => {
+                acc[item.senderId] = item.count;
+                return acc;
+            }, {});
+            setUnreadMessages(unreadCounts);
+        } catch (error) {
+            console.error('Error fetching unread messages count.', error);
+        }
+    };
+
 
     const handleChatRoom = async (friendId: number) => {
         try {
@@ -38,7 +66,11 @@ const Friends = () => {
             );
 
             const chatRoomId = response.data.chatRoomId;
+            console.log('room id',  chatRoomId)
+
             navigate(`/room/${chatRoomId}`);
+            onUserSelect();
+            
         } catch (error) {
             console.error('Error creating chat room.', error);
         }
@@ -82,6 +114,7 @@ const Friends = () => {
 
     const handleGroupRoom = async (chatRoomId: number) => {
         navigate(`/room/${chatRoomId}`);
+        onUserSelect();
     };
     
 
@@ -97,15 +130,18 @@ const Friends = () => {
                 ) : (
                     <ul>
                         {friends.map((friend) => {
-                            const friendInfo = friend.userId === userId ? friend.friend : friend.user;
+                            const friendInfo = friend.senderId === userId ? friend.receiver: friend.sender;
+                            if (!friendInfo) return null;
 
                             const profilePicture = friendInfo?.profilePicture
                                 ? `${ApiConfig.PHOTO_PATH}${friendInfo.profilePicture}`
-                                : '/default-avatar.png'; // default avatar
+                                : defaultProfile; 
+
+                                const unreadCount = unreadMessages[friendInfo.userId!] || 0;
 
                             return (
                                 <li
-                                    key={`${friend.userId}-${friend.friendId}`}
+                                    key={`${friend.receiverId}-${friend.senderId}`}
                                     className="friend-item"
                                     onClick={() =>
                                         friendInfo?.userId &&
@@ -127,6 +163,7 @@ const Friends = () => {
                                             }`}
                                         />
                                     </div>
+                                    {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
                                 </li>
                             );
                         })}

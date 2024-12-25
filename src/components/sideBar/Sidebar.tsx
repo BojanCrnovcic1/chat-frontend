@@ -2,14 +2,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Friends from '../friends/Friends';
 import Search from '../search/Search';
 import './sideBar.scss';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import CreateGroupRoomModal from '../../modals/room/CreateGroupRoomModal';
 
-const Sidebar = () => {
+interface  sidebarProps {
+  isSidebarVisible: boolean;
+  setSidebarVisible: (visible: boolean) => void;
+}
+
+const Sidebar: React.FC<sidebarProps> = ({ isSidebarVisible, setSidebarVisible }) => {
   const [showCreateGroupRoomModal, setShowCreateGroupRoomModal] = useState<boolean>(false);
+
+  const handleCloseSidebar = () => {
+    if (window.innerWidth <= 768) {
+      setSidebarVisible(false);
+    }
+  };
+  
   return (
-    <div className='sideBar'>
+    <div className={isSidebarVisible ? 'sideBar visible' : 'sideBar'} >
         <div className='sideBar-search'>
             <Search />
         </div>
@@ -22,7 +34,7 @@ const Sidebar = () => {
           )}
         </div>
         <div className='sideBar-friends'>
-            <Friends />
+            <Friends onUserSelect={handleCloseSidebar} />
         </div>
     </div>
   )

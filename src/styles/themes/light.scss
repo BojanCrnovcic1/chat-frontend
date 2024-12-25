@@ -1,0 +1,255 @@
+html.light {
+    background-image: url('/src/assets/coverLight.jpg') !important;
+    background-size: cover;
+    background-position: center;
+
+    body {
+        background-color: rgba(249, 249, 249, 0.6);
+        color:#333
+    }
+
+    .navBar {
+        .navBar-left {
+            h1 {
+                color: #3A506B;
+            }
+            h1:hover {
+                color: #5B8AA6;
+            }
+            .menu-icon {
+                color: #3A506B;
+            }
+            .menu-icon:hover {
+                color: #5B8AA6;
+            }
+        }
+        .navBar-right {
+            .navBar-user {
+                span {
+                    color: #3A506B;
+                }
+                span:hover {
+                    color: #5B8AA6;
+                }
+            }
+            .notification-wrapper {
+                color: #3A506B;
+                .notification-count {
+                    background-color: #E63946;
+                    color: white;
+                }
+            }
+            .notification-wrapper:hover {
+                color: #5B8AA6;
+            }
+            svg {
+                color: #3A506B;
+            }
+            svg:hover {
+                color: #5B8AA6;
+            }
+        }
+    }
+
+    .sideBar {
+        button {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: #E5E5E5; 
+        }
+        button:hover {
+            background-color: #CCCCCC; 
+            color: #333;
+        }
+
+        .friends-container {
+            .list-friends {
+                ul {
+                    .friend-item {
+                        h3 {
+                            color:#333
+                        }
+                        &:hover {
+                            background-color: #F1F1F1;
+                        }
+                    }
+                }
+            }
+            .group-room-item {
+                &:hover {
+                    background-color: #F1F1F1;
+                }
+                .group-label {
+                    background-color: #3A506B;
+                    color: white;
+                }
+            }
+        }
+        .friends-container::-webkit-scrollbar-thumb {
+            background-color: #CCCCCC;
+        }
+        .friends-container::-webkit-scrollbar-thumb:hover {
+            background-color: #AAAAAA;
+        }
+    }
+
+    
+    .no-chat-selected {
+            h2 {
+                color:#555
+            }
+            p {
+                color: #555
+            }
+            
+    }
+
+
+    .room {
+        .room-header {
+            background-color: #ffffff;
+            color: #333;
+            h2 {
+                color: #3A506B;
+            }
+
+            .room-header-detalis {
+                .private-detalis {
+                    .user-info {
+                        .username {
+                            color: #3A506B;
+                        }
+                    }
+                }
+            }
+
+            .room-options {
+                button {
+                    background-color: #3A506B;
+                    color: white;
+                }
+                button:hover {
+                    background-color: #5B8AA6;
+                    color: #f3eeee;
+                }
+            }
+        }
+
+        .message-content {
+            .message-list {
+                .message-items {
+                    &.sent {
+                        .message-date {
+                            color: rgb(61, 60, 60);
+                        }
+                        background-color: #F1F1F1; 
+                        color: #333;
+                    }
+                    &.received {
+                        background-color: #FFFFFF;
+                        color: #333;
+                    }
+                }
+            }
+            .message-list::-webkit-scrollbar-thumb {
+                background-color: #CCCCCC;
+            }
+            .message-list::-webkit-scrollbar-thumb:hover {
+                background-color: #AAAAAA;
+            }
+
+            .message-inputs {
+                background-color: #FFFFFF;
+                .message-input {
+                    input {
+                        border: 1px solid #CCCCCC;
+                    }
+
+                    button {
+                        background-color: #3A506B;
+                        color: #ffffff;
+                        &:hover {
+                            background-color: #5B8AA6;
+                            color: #f3eeee;
+                        }
+                    }
+                }
+
+                .message-icons {
+                    svg {
+                        color: #3A506B;
+                        &:hover {
+                            color: #5B8AA6;
+                        }
+                    }
+                }
+
+                .confirm-upload-btn {
+                    background-color: #E63946;
+                    color: white;
+                    &:hover {
+                        background-color: #BA1E30;
+                    }
+                }
+            }
+
+            .reply-message {
+                border: 1px solid #CCCCCC;
+                background: #F5F5F5;
+                color: #333;
+            }
+
+            .reply-preview {
+                border-left: 4px solid #3A506B;
+                background-color: #F1F1F1;
+                color: #333;
+            }
+        }
+    }
+
+    .notification-container {
+        .notification-item {
+            color: white;
+            background: linear-gradient(135deg, rgb(248, 250, 248, 0.4), rgba(248, 250, 248, 0.2));
+            &:hover {
+                background: linear-gradient(135deg, rgb(248, 250, 248, 0.6), rgba(248, 250, 248, 0.3));
+            }
+            &.read {
+                color: #48cae4;
+            }
+        }
+        .admin-message-modal {
+            .admin-message-content {
+                background: #F1F1F1;
+                h2 {
+                    color: #3A506B;
+                    border-bottom: 1px solid #3A506B;
+                }
+                p {
+                    color: black;
+                }
+                .close-button {
+                    color: #3A506B;
+
+                    &:hover {
+                        color: #5B8AA6;
+                    }
+                }
+            }
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #CCCCCC;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: #AAAAAA;
+        }
+    }
+
+    .settings {
+        .settings-container {
+            h1 {
+                color: #F1F1F1;
+            }
+        }
+    }
+}
+

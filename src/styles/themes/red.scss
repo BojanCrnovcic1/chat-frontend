@@ -1,0 +1,228 @@
+html.red {
+
+        background-image: url('/src/assets/coverRed.jpg') !important;
+        background-size: cover;
+        background-position: center;
+    
+    body {
+        background-color: rgba(71, 2, 2, 0.8);
+    }
+
+    .navBar {
+        .navBar-left {
+            h1 {
+                color: #F48C06;
+            }
+            h1:hover {
+                color: #E85D04;
+            }
+            .menu-icon {
+                color: #F48C06;
+            }
+            .menu-icon:hover {
+                color: #E85D04;
+            }
+        }
+        .navBar-right {
+            .navBar-user {
+                span {
+                    color: #F48C06;
+                }
+                span:hover {
+                    color: #E85D04;
+                }
+            }
+            .notification-wrapper {
+                color: #F48C06;
+                .notification-count {
+                    background-color: red;
+                    color: white;
+                }
+            }
+            .notification-wrapper:hover {
+                color: #E85D04;
+            }
+            svg {
+                color: #F48C06;
+            }
+            svg:hover {
+                color: #E85D04;
+            }
+        }
+    }
+
+    .sideBar {
+        button {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: #C6050B;
+        }
+        button:hover {
+            background-color: #DC2F02;
+        }
+
+        .friends-container {
+            .list-friends {
+                ul {
+                    .friend-item {
+                        &:hover {
+                            background-color: rgba(216, 24, 31, 0.8);
+                        }
+                    }
+                }
+            }
+            .group-room-item {
+                &:hover {
+                    background-color: rgba(216, 24, 31, 0.8);
+                }
+                .group-label {
+                    background-color: #F48C06;
+                }
+            }
+        }
+        .friends-container::-webkit-scrollbar-thumb {
+            background-color: rgba(198, 5, 11, 0.5);
+        }
+        .friends-container::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(198, 5, 11, 0.7);
+        }
+    }
+
+    .room {
+        .room-header {
+            background-color: #9D0208;
+            color: #fff;
+            h2 {
+                color: #F48C06;
+            }
+
+            .room-header-detalis {
+                .private-detalis {
+                    .user-info {
+                        .username {
+                            color: #F48C06;
+                        }
+                    }
+                }
+            }
+
+            .room-options {
+                button {
+                    background-color: #F48C06;
+                }
+                button:hover {
+                    background-color: #E85D04;
+                }
+            }
+        }
+
+        .message-content {       
+            .message-list {
+              .message-items {
+                &.sent {
+                  background: linear-gradient(rgba(255, 186, 8, 0.8), rgba(255, 186, 8, 0.5));
+                  color: rgb(14, 13, 13)
+                }
+        
+                &.received {
+                  background-color: #555; 
+                }
+              }
+            }
+            .message-list::-webkit-scrollbar-thumb {
+                background-color: rgba(198, 5, 11, 0.5); 
+            }
+            .message-list::-webkit-scrollbar-thumb:hover {
+                background-color: rgba(198, 5, 11, 0.7);  
+            }
+
+            .message-inputs {
+                background-color: #9D0208;
+              .message-input {
+                input {
+                  border: 1px solid #989090; 
+                }
+          
+                button {
+                    background-color: #F48C06;
+                  &:hover {
+                    background-color: #E85D04;
+                  }
+                }
+              }
+          
+              .message-icons {
+    
+                svg {
+                  color: #F48C06;
+                  &:hover {
+                    color: #E85D04;
+                  }
+                }
+              }
+          
+              .confirm-upload-btn {
+                background-color: #ff6b6b;
+                color: white;
+                &:hover {
+                  background-color: #e05656;
+                }
+              }
+            }
+
+            .reply-message {
+                border: 1px solid #F48C06;
+                background: #e7f5e7;
+                color: #333;
+              }
+            
+              .reply-preview {
+                border-left: 4px solid #c98679;
+                background-color: rgba(217, 18, 0, 0.1);
+                color: #F48C06;
+              }
+          }
+    }
+
+    .notification-container {
+        .notification-item {
+            background: linear-gradient(135deg, rgba(216, 24, 31, 0.4), rgba(216, 24, 31, 0.2));
+            &:hover {
+                background: linear-gradient(135deg, rgba(216, 24, 31, 0.6), rgba(216, 24, 31, 0.3));
+            }
+        }
+        .admin-message-modal {
+            .admin-message-content {
+                background: #9D0208;
+                h2 {
+                    color: #F48C06;
+                    border-bottom: 1px solid #F48C06;
+                }
+                p {
+                    color: #fff;
+                }
+                .close-button {
+                    color: #F48C06;
+
+                    &:hover {
+                        color: #E85D04;
+                    }
+                }
+            }
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(198, 5, 11, 0.5);
+        }
+    
+        &::-webkit-scrollbar-thumb:hover {
+            background: rgba(198, 5, 11, 0.7);
+        }
+    }
+
+    .settings {
+        .settings-container {
+            h1 {
+                color: #F48C06;
+            }
+        }
+    }
+}

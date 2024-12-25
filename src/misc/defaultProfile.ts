@@ -1,1 +1,1 @@
-export const defaultProfile = 'assets/profile.jpg'
+export const defaultProfile = '../src/assets/profile2.jpg'

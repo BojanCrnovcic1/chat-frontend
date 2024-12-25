@@ -1,3 +1,4 @@
+import { AdminMessageType } from "./AdminMessageType";
 import { BannedUserType } from "./BannedUserType";
 import { ChatRoomMemberType } from "./ChatRoomMemberType";
 import { FriendType } from "./FriendType";
@@ -13,6 +14,8 @@ export interface User {
     profilePicture?: string | null;
     onlineStatus?: boolean | null;
     createdAt?: Date | null;
+    lastActive?: Date | null;
+    adminMessages?: AdminMessageType[];
     bannedUsers?: BannedUserType[];
     chatRoomMembers?: ChatRoomMemberType[];
     friends?: FriendType[];
@@ -20,5 +23,6 @@ export interface User {
     likes?: LikeType[];
     messages?: MessageType[];
     notifications?: NotificationType[];
+    role?: string;
     
 }

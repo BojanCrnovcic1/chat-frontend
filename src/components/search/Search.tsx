@@ -95,7 +95,7 @@ const Search: React.FC = () => {
                     {results.map((user) => (
                         <li key={user.userId}>
                             <div className='list-data'>
-                                <img src={ApiConfig.PHOTO_PATH + user.profilePicture ? ApiConfig.PHOTO_PATH + user.profilePicture : defaultProfile} alt=''
+                                <img src={user.profilePicture ? ApiConfig.PHOTO_PATH + user.profilePicture : defaultProfile} alt=''
                                      onClick={() => openImageModal(ApiConfig.PHOTO_PATH + user.profilePicture)} />
                                 <span>{user.username}</span>                   
                             </div>

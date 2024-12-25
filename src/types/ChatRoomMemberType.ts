@@ -6,6 +6,7 @@ export interface ChatRoomMemberType {
     userId?: number;
     role?: "member" | "admin" | null;
     joinedAt?: Date | null;
+    unreadMessageCount?: number;
     chatRoom?: ChatRoomType;
     user?: User;
     username?: string;

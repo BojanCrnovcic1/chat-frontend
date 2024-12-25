@@ -1,17 +1,34 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGear, faMoon, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faMoon, faBell, faBars, faFireFlameCurved, faWater, IconDefinition, faClover, faSun, faSnowflake } from '@fortawesome/free-solid-svg-icons';
 import './navBar.scss';
 import { ApiConfig } from '../../config/ApiConfig';
 import { useAuth } from '../../context/AuthContext';
+import { defaultProfile } from '../../misc/defaultProfile';
 
-const Navbar = () => {
+interface NavbarProps {
+    toggleSidebar: () => void;
+}
+
+const themes = ['red', 'green', 'yellow', 'light', 'dark', 'default'] as const;
+
+const themeIcons: Record<'default' | 'dark' | 'red' | 'green' | 'yellow' | 'light', IconDefinition> = {
+    default: faWater,
+    dark: faMoon,
+    red: faFireFlameCurved,
+    green: faClover,
+    yellow: faSun,
+    light: faSnowflake
+  };
+
+const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
     const { token, user } = useAuth();
     const navigate = useNavigate();
     const [unreadCount, setUnreadCount] = useState<number>(0);
     const [isInteracted, setIsInteracted] = useState<boolean>(false);
+    const [currentTheme, setCurrentTheme] = useState<'default' | 'dark' | 'red' | 'green' | 'yellow' | 'light'>('default');
 
     const notificationSound = new Audio('src/assets/sounds/notification.mp3');
     notificationSound.volume = 1;
@@ -66,9 +83,44 @@ const Navbar = () => {
         }
     }, [user?.userId]);
 
+    useEffect(() => {
+        const savedTheme = (localStorage.getItem('theme') || 'default') as 'default' | 'dark' | 'red' | 'green' | 'yellow' | 'light';
+        setCurrentTheme(savedTheme);
+        applyTheme(savedTheme);
+    }, []);
+
+    const applyTheme = (theme: 'default' | 'dark' | 'red' | 'green' | 'yellow' | 'light') => {
+        document.documentElement.className = '';
+        import(`../../styles/themes/${theme}.scss`)
+          .then(() => {
+            document.documentElement.classList.add(theme);
+          })
+          .catch((error) => console.error('Greška pri učitavanju teme:', error));
+      };
+    
+      const handleThemeChange = () => {
+        const currentIndex = themes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % themes.length;
+        const nextTheme = themes[nextIndex];
+        setCurrentTheme(nextTheme);
+        localStorage.setItem('theme', nextTheme);
+        applyTheme(nextTheme);
+      };
+    
+      const getNextThemeIcon = () => {
+        const currentIndex = themes.indexOf(currentTheme);
+        const nextIndex = (currentIndex + 1) % themes.length;
+        const nextTheme = themes[nextIndex] as 'default' | 'dark' | 'red' | 'green';
+        return themeIcons[nextTheme];
+      };
+
     const fetchLoginUser = async (userId: number) => {
         try {
-            const response = await axios.get(ApiConfig.API_URL + `api/user/${userId}`);
+            const response = await axios.get(ApiConfig.API_URL + `api/user/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             return response.data;
         } catch (error) {
             console.error('Error fetching login user:', error);
@@ -93,14 +145,22 @@ const Navbar = () => {
     return (
         <div className='navBar' onClick={handleInteraction}>
             <div className='navBar-left'>
-                <h1>App naziv</h1>
+                <FontAwesomeIcon icon={faBars} className="menu-icon" onClick={toggleSidebar} />
+                <h1>Eee?...</h1>
             </div>
             <div className='navBar-right'>
                 <div className='navBar-user'>
-                    <img src={ApiConfig.PHOTO_PATH +user?.profilePicture} alt="" />
+                    <img src={user?.profilePicture 
+                              ? ApiConfig.PHOTO_PATH + user.profilePicture 
+                              : defaultProfile} 
+                               alt="Profile" 
+                    />
                     <span>{user?.username}</span>
                 </div>
-                <FontAwesomeIcon icon={faMoon} />
+                <FontAwesomeIcon icon={getNextThemeIcon()}
+                                 onClick={handleThemeChange}
+                                 size='2x' />
+
                 <div className='notification-wrapper' onClick={handleNotificationClick}>
                     <FontAwesomeIcon
                         icon={faBell}

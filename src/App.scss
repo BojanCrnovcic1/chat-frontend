@@ -1,17 +1,24 @@
-body {
+body {    
     display: flex;
     flex-direction: column;
     background-color: rgba(2, 48, 71, 0.8);
-    width: 900px;
+    max-width: 1400px;
     height: 100vh;
     border-radius: 10px;
-
+    margin: auto;
+    
     .section {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        border: 1px solid purple;
         height: 700px;
-        
+    
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }            
     }
 }

@@ -1,0 +1,124 @@
+.settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.6);
+    margin: 0 auto;
+  
+    .settings-container {
+      
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 100%; 
+      min-height: 500px;
+  
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+        color: #00d9a3;
+      }
+  
+      .button-settings,
+      .button-logout,
+      .button-delete {
+        button {
+          width: 100%;
+          padding: 1.2rem;
+          font-size: 1.2rem;
+          font-weight: 500;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+  
+          &:hover {
+            transform: translateY(-2px);
+          }
+        }
+      }
+  
+      .button-settings {
+        margin-bottom: 2.7rem; 
+  
+        button {
+          background-color: #287094;
+          color: #ffffff;
+  
+          &:first-child {
+            margin-bottom: 1.7rem; 
+          }
+  
+          &:hover {
+            background-color: #206281;
+          }
+        }
+      }
+  
+      .button-logout {
+        margin-bottom: 2.4rem; 
+        button {
+          background-color: #35a79c;
+          color: #ffffff;
+  
+          &:hover {
+            background-color: #2a8b85;
+          }
+        }
+      }
+  
+      .button-delete {
+        button {
+          background-color: #b23a48;
+          color: #ffffff;
+  
+          &:hover {
+            background-color: #912f3b;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 2rem;
+        min-height: auto;
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .button-settings,
+        .button-logout,
+        .button-delete {
+            button {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        padding: 1.5rem;
+
+        h1 {
+            font-size: 1.6rem;
+        }
+
+        .button-settings,
+        .button-logout,
+        .button-delete {
+            button {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    }
+  }
+  
+  

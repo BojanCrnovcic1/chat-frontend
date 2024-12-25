@@ -1,0 +1,233 @@
+html.green {
+    background-image: url('/src/assets/coverGreen.jpg') !important;
+    background-size: cover;
+    background-position: center;
+
+    body {
+        background-color: rgba(2, 71, 27, 0.8);
+    }
+
+    .navBar {
+        .navBar-left {
+            h1 {
+                color: #ECF39E;
+            }
+            h1:hover {
+                color: #90A955;
+            }
+            .menu-icon {
+                color: #ECF39E;;
+            }
+            .menu-icon:hover {
+                color: #90A955;
+            }
+        }
+        .navBar-right {
+            .navBar-user {
+                span {
+                    color: #ECF39E;
+                }
+                span:hover {
+                    color: #90A955;
+                }
+            }
+            .notification-wrapper {
+                color: #ECF39E;
+                .notification-count {
+                    background-color: red;
+                    color: white;
+                }
+            }
+            .notification-wrapper:hover {
+                color: #90A955;
+            }
+            svg {
+                color: #ECF39E;
+            }
+            svg:hover {
+                color: #90A955;
+            }
+        }
+    }
+
+    .sideBar {
+        button {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: #31572C;
+        }
+        button:hover {
+            background-color: #4F772D;
+        }
+
+        .friends-container {
+            .list-friends {
+                ul {
+                    .friend-item {
+                        &:hover {
+                            background-color: rgba(2, 71, 2, 0.8);
+                        }
+                    }
+                }
+            }
+            .group-room-item {
+                &:hover {
+                    background-color: rgba(2, 71, 2, 0.8);
+                }
+                .group-label {
+                    background-color: #ECF39E;
+                    color: black
+                }
+            }
+        }
+        .friends-container::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 204, 17, 0.5);
+        }
+        .friends-container::-webkit-scrollbar-thumb:hover {
+            background-color:  rgba(0, 204, 17, 0.7);
+        }
+    }
+
+    .room {
+        .room-header {
+            background-color: #132A13;
+            color: #fff;
+            h2 {
+                color: #ECF39E;
+            }
+
+            .room-header-detalis {
+                .private-detalis {
+                    .user-info {
+                        .username {
+                            color: #ECF39E;
+                        }
+                    }
+                }
+            }
+
+            .room-options {
+                button {
+                    background-color: #ECF39E;
+                    color: #555;
+                }
+                button:hover {
+                    background-color: #90A955;
+                    color: white;
+                }
+            }
+        }
+
+        .message-content {       
+            .message-list {
+              .message-items {
+                &.sent {
+                  background: linear-gradient(rgba(8, 255, 247, 0.8), rgba(8, 255, 247, 0.5));
+                  color: rgb(58, 57, 57)
+                }
+        
+                &.received {
+                  background-color: #555; 
+                }
+              }
+            }
+            .message-list::-webkit-scrollbar-thumb {
+                background-color:  rgba(0, 204, 17, 0.5); 
+            }
+            .message-list::-webkit-scrollbar-thumb:hover {
+                background-color:  rgba(0, 204, 17, 0.7); 
+            }
+
+            .message-inputs {
+                background-color: #132A13;
+              .message-input {
+                input {
+                  border: 1px solid #989090; 
+                }
+          
+                button {
+                    background-color: #ECF39E;
+                    color: #555;
+                  &:hover {
+                    background-color: #90A955;
+                    color: white;
+                  }
+                }
+              }
+          
+              .message-icons {
+    
+                svg {
+                  color: #ECF39E;
+                  &:hover {
+                    color: #90A955;
+                  }
+                }
+              }
+          
+              .confirm-upload-btn {
+                background-color: #ff6b6b;
+                color: white;
+                &:hover {
+                  background-color: #e05656;
+                }
+              }
+            }
+
+            .reply-message {
+                border: 1px solid #90A955;
+                background: #e7f5e7;
+                color: #333;
+              }
+            
+              .reply-preview {
+                border-left: 4px solid #c98679;
+                background-color: rgba(217, 18, 0, 0.1);
+                color: #90A955;
+              }
+          }
+    }
+
+    .notification-container {
+        .notification-item {
+            background: linear-gradient(135deg, rgba(14, 97, 39, 0.4), rgba(14, 97, 39, 0.2));
+            &:hover {
+                background: linear-gradient(135deg, rgba(0, 204, 27, 0.6), rgba(0, 204, 27, 0.3));
+            }
+        }
+        .admin-message-modal {
+            .admin-message-content {
+                background: #132A13;
+                h2 {
+                    color: #ECF39E;
+                    border-bottom: 1px solid #ECF39E;
+                }
+                p {
+                    color: #fff;
+                }
+                .close-button {
+                    color: #ECF39E;
+
+                    &:hover {
+                        color: #90A955;
+                    }
+                }
+            }
+        }
+        &::-webkit-scrollbar-thumb {
+            background: rgba(0, 204, 17, 0.5);
+            border-radius: 4px;
+        }
+    
+        &::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 204, 14, 0.7);
+        }
+    }
+
+    .settings {
+        .settings-container {
+            h1 {
+                color: #ECF39E;
+            }
+        }
+    }
+}

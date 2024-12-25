@@ -39,7 +39,7 @@ const RegisterPage = () => {
                 return response.statusText
             }
             else {
-                navigate('/');
+                navigate('/login');
             }
 
         } catch (error) {

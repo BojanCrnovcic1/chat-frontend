@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './membersListModal.scss';
 import { ChatRoomMemberType } from '../../types/ChatRoomMemberType';
 import { ApiConfig } from '../../config/ApiConfig';
+import { defaultProfile } from '../../misc/defaultProfile';
 
 interface MembersListModalProps {
   show: boolean;
@@ -34,7 +35,7 @@ const MembersListModal: React.FC<MembersListModalProps> = ({ show, handleClose, 
                         return (
                             <ul key={member.userId}>
                                 <li>
-                                    <img src={ApiConfig.PHOTO_PATH + member.profilePicture} alt="Profile" />
+                                    <img src={member.profilePicture ? ApiConfig.PHOTO_PATH + member.profilePicture : defaultProfile} alt="Profile" />
                                     <h3>{member.username}</h3>
                                     <span
                                         className={`status-indicator ${member.onlineStatus ? 'online' : 'offline'}`}

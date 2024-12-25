@@ -1,0 +1,234 @@
+html.dark {
+    background-image: url('/src/assets/coverDark.jpg')!important;
+    background-size: cover;
+    background-position: center;
+
+    body {
+        background-color: rgba(0, 9, 4, 0.7);
+    }
+
+    .navBar {
+        .navBar-left {
+            h1 {
+                color: #A3BCF9;
+            }
+            h1:hover {
+                color: #7289DA; 
+            }
+            .menu-icon {
+                color: #A3BCF9;
+            }
+            .menu-icon:hover {
+                color: #7289DA;
+            }
+        }
+        .navBar-right {
+            .navBar-user {
+                span {
+                    color: #A3BCF9;
+                }
+                span:hover {
+                    color: #7289DA;
+                }
+            }
+            .notification-wrapper {
+                color: #A3BCF9;
+                .notification-count {
+                    background-color: #E63946; // Crvena za obaveštenja
+                    color: white;
+                }
+            }
+            .notification-wrapper:hover {
+                color: #7289DA;
+            }
+            svg {
+                color: #A3BCF9;
+            }
+            svg:hover {
+                color: #7289DA;
+            }
+        }
+    }
+
+    .sideBar {
+        button {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: #1E1E1E; // Tamno siva
+        }
+        button:hover {
+            background-color: #333333; // Svetlija siva za hover
+        }
+
+        .friends-container {
+            .list-friends {
+                ul {
+                    .friend-item {
+                        &:hover {
+                            background-color: #252525; // Blaga promena boje za hover
+                        }
+                    }
+                }
+            }
+            .group-room-item {
+                &:hover {
+                    background-color: #252525;
+                }
+                .group-label {
+                    background-color: #A3BCF9;
+                    color: black;
+                }
+            }
+        }
+        .friends-container::-webkit-scrollbar-thumb {
+            background-color: #333333;
+        }
+        .friends-container::-webkit-scrollbar-thumb:hover {
+            background-color: #555555;
+        }
+    }
+
+    .room {
+        .room-header {
+            background-color: #1E1E1E;
+            color: #E0E0E0; // Svetlo siva za tekst
+            h2 {
+                color: #A3BCF9;
+            }
+
+            .room-header-detalis {
+                .private-detalis {
+                    .user-info {
+                        .username {
+                            color: #A3BCF9;
+                        }
+                    }
+                }
+            }
+
+            .room-options {
+                button {
+                    background-color: #333333;
+                    color: #E0E0E0;
+                }
+                button:hover {
+                    background-color: #555555;
+                    color: white;
+                }
+            }
+        }
+
+        .message-content {
+            .message-list {
+                .message-items {
+                    &.sent {
+                        background-color: #252525; // Svetlo tamna za poslate poruke
+                        color: #E0E0E0;
+                    }
+                    &.received {
+                        background-color: #1E1E1E; // Još tamnija za primljene poruke
+                        color: #E0E0E0;
+                    }
+                }
+            }
+            .message-list::-webkit-scrollbar-thumb {
+                background-color: #333333;
+            }
+            .message-list::-webkit-scrollbar-thumb:hover {
+                background-color: #555555;
+            }
+
+            .message-inputs {
+                background-color: #1E1E1E;
+                .message-input {
+                    input {
+                        border: 1px solid #333333;
+                    }
+
+                    button {
+                        background-color: #333333;
+                        color: #E0E0E0;
+                        &:hover {
+                            background-color: #555555;
+                            color: white;
+                        }
+                    }
+                }
+
+                .message-icons {
+                    svg {
+                        color: #A3BCF9;
+                        &:hover {
+                            color: #7289DA;
+                        }
+                    }
+                }
+
+                .confirm-upload-btn {
+                    background-color: #E63946;
+                    color: white;
+                    &:hover {
+                        background-color: #BA1E30;
+                    }
+                }
+            }
+
+            .reply-message {
+                border: 1px solid #333333;
+                background: #1E1E1E;
+                color: #E0E0E0;
+            }
+
+            .reply-preview {
+                border-left: 4px solid #A3BCF9;
+                background-color: #252525;
+                color: #E0E0E0;
+            }
+        }
+    }
+
+    .notification-container {
+        .notification-item {
+            color: white;
+            background: linear-gradient(135deg, rgb(30, 30, 30, 0.4), rgba(30, 30, 30, 0.2));
+            &:hover {
+                background: linear-gradient(135deg, rgb(30, 30, 30, 0.8), rgba(30, 30, 30, 0.5));
+            }
+            &.read {
+                color: grey;
+            }
+        }
+        .admin-message-modal {
+            .admin-message-content {
+                background: #333333;
+                h2 {
+                    color: #A3BCF9;
+                    border-bottom: 1px solid #A3BCF9;
+                }
+                p {
+                    color: #E0E0E0;
+                }
+                .close-button {
+                    color: #A3BCF9;
+
+                    &:hover {
+                        color: #7289DA;
+                    }
+                }
+            }
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #333333;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background-color: #555555;
+        }
+    }
+
+    .settings {
+        .settings-container {
+            h1 {
+                color: #A3BCF9;
+            }
+        }
+    }
+};
